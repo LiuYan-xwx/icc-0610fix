@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Security.Cryptography;
 
 namespace Ink_Canvas {
     /// <summary>
@@ -71,9 +72,8 @@ namespace Ink_Canvas {
         public int RandMaxPeopleOneTime = 10;
         public int RandDoneAutoCloseWaitTime = 2500;
 
-        private void BorderBtnRand_MouseUp(object sender, MouseButtonEventArgs e) {
-            Random random = new Random();// randSeed + DateTime.Now.Millisecond / 10 % 10);
-            string outputString = "";
+        private void BorderBtnRand_MouseUp(object sender, MouseButtonEventArgs e)
+        {
             List<string> outputs = new List<string>();
             List<int> rands = new List<int>();
 
@@ -81,17 +81,16 @@ namespace Ink_Canvas {
             LabelOutput3.Visibility = Visibility.Collapsed;
 
             new Thread(new ThreadStart(() => {
-                for (int i = 0; i < RandWaitingTimes; i++) {
-                    int rand = random.Next(1, PeopleCount + 1);
-                    while (rands.Contains(rand)) {
-                        rand = random.Next(1, PeopleCount + 1);
-                    }
-                    rands.Add(rand);
-                    if (rands.Count >= PeopleCount) rands = new List<int>();
+                for (int i = 0; i < RandWaitingTimes; i++)
+                {
+                    int rand = GetRandomNumber(1, PeopleCount + 1);
                     Application.Current.Dispatcher.Invoke(() => {
-                        if (Names.Count != 0) {
+                        if (Names.Count != 0)
+                        {
                             LabelOutput.Content = Names[rand - 1];
-                        } else {
+                        }
+                        else
+                        {
                             LabelOutput.Content = rand.ToString();
                         }
                     });
@@ -99,59 +98,25 @@ namespace Ink_Canvas {
                     Thread.Sleep(RandWaitingThreadSleepTime);
                 }
 
-                rands = new List<int>();
+                List<int> shuffledIndices = Enumerable.Range(0, PeopleCount).ToList();
+                Shuffle(shuffledIndices);
+
                 Application.Current.Dispatcher.Invoke(() => {
-                    for (int i = 0; i < TotalCount; i++) {
-                        int rand = random.Next(1, PeopleCount + 1);
-                        while (rands.Contains(rand)) {
-                            rand = random.Next(1, PeopleCount + 1);
+                    for (int i = 0; i < TotalCount; i++)
+                    {
+                        int index = shuffledIndices[i];
+                        if (Names.Count != 0)
+                        {
+                            outputs.Add(Names[index]);
                         }
-                        rands.Add(rand);
-                        if (rands.Count >= PeopleCount) rands = new List<int>();
-
-                        if (Names.Count != 0) {
-                            outputs.Add(Names[rand - 1]);
-                            outputString += Names[rand - 1] + Environment.NewLine;
-                        } else {
-                            outputs.Add(rand.ToString());
-                            outputString += rand.ToString() + Environment.NewLine;
+                        else
+                        {
+                            outputs.Add((index + 1).ToString());
                         }
                     }
-                    if (TotalCount <= 5) {
-                        LabelOutput.Content = outputString.ToString().Trim();
-                    } else if (TotalCount <= 10) {
-                        LabelOutput2.Visibility = Visibility.Visible;
-                        outputString = "";
-                        for (int i = 0; i < (outputs.Count + 1) / 2; i++) {
-                            outputString += outputs[i].ToString() + Environment.NewLine;
-                        }
-                        LabelOutput.Content = outputString.ToString().Trim();
-                        outputString = "";
-                        for (int i = (outputs.Count + 1) / 2; i < outputs.Count; i++) {
-                            outputString += outputs[i].ToString() + Environment.NewLine;
-                        }
-                        LabelOutput2.Content = outputString.ToString().Trim();
-                    } else {
-                        LabelOutput2.Visibility = Visibility.Visible;
-                        LabelOutput3.Visibility = Visibility.Visible;
-                        outputString = "";
-                        for (int i = 0; i < (outputs.Count + 1) / 3; i++) {
-                            outputString += outputs[i].ToString() + Environment.NewLine;
-                        }
-                        LabelOutput.Content = outputString.ToString().Trim();
-                        outputString = "";
-                        for (int i = (outputs.Count + 1) / 3; i < (outputs.Count + 1) * 2 / 3; i++) {
-                            outputString += outputs[i].ToString() + Environment.NewLine;
-                        }
-                        LabelOutput2.Content = outputString.ToString().Trim();
-                        outputString = "";
-                        for (int i = (outputs.Count + 1) * 2 / 3; i < outputs.Count; i++) {
-                            outputString += outputs[i].ToString() + Environment.NewLine;
-                        }
-                        LabelOutput3.Content = outputString.ToString().Trim();
-                    }
-
-                    if (isAutoClose) {
+                    UpdateLabelOutputs(outputs);
+                    if (isAutoClose)
+                    {
                         new Thread(new ThreadStart(() => {
                             Thread.Sleep(RandDoneAutoCloseWaitTime);
                             Application.Current.Dispatcher.Invoke(() => {
@@ -163,6 +128,54 @@ namespace Ink_Canvas {
                     }
                 });
             })).Start();
+        }
+
+        private int GetRandomNumber(int minValue, int maxValue)
+        {
+            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+            {
+                byte[] randomNumber = new byte[4];
+                rng.GetBytes(randomNumber);
+                int value = BitConverter.ToInt32(randomNumber, 0);
+                return new Random(value).Next(minValue, maxValue);
+            }
+        }
+
+        private void UpdateLabelOutputs(List<string> outputs)
+        {
+            string outputString = "";
+            if (TotalCount <= 5)
+            {
+                LabelOutput.Content = string.Join(Environment.NewLine, outputs);
+            }
+            else if (TotalCount <= 10)
+            {
+                LabelOutput2.Visibility = Visibility.Visible;
+                LabelOutput.Content = string.Join(Environment.NewLine, outputs.Take((outputs.Count + 1) / 2));
+                LabelOutput2.Content = string.Join(Environment.NewLine, outputs.Skip((outputs.Count + 1) / 2));
+            }
+            else
+            {
+                LabelOutput2.Visibility = Visibility.Visible;
+                LabelOutput3.Visibility = Visibility.Visible;
+                LabelOutput.Content = string.Join(Environment.NewLine, outputs.Take((outputs.Count + 1) / 3));
+                LabelOutput2.Content = string.Join(Environment.NewLine, outputs.Skip((outputs.Count + 1) / 3).Take((outputs.Count + 1) / 3));
+                LabelOutput3.Content = string.Join(Environment.NewLine, outputs.Skip((outputs.Count + 1) * 2 / 3));
+            }
+        }
+
+        private void Shuffle<T>(IList<T> list)
+        {
+            Random rng = new Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e) {
@@ -207,3 +220,18 @@ namespace Ink_Canvas {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
