@@ -9,21 +9,28 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Security.Cryptography;
+using MessageBox = System.Windows.MessageBox;
+
 
 namespace Ink_Canvas {
     /// <summary>
     /// Interaction logic for RandWindow.xaml
     /// </summary>
-    public partial class RandWindow : Window {
-        public RandWindow(Settings settings) {
+    public partial class RandWindow : Window
+    {
+        private HashSet<int> drawnIndices = new HashSet<int>();
+
+        public RandWindow(Settings settings)
+        {
             InitializeComponent();
             AnimationsHelper.ShowWithSlideFromBottomAndFade(this, 0.25);
             BorderBtnHelp.Visibility = settings.RandSettings.DisplayRandWindowNamesInputBtn == false ? Visibility.Collapsed : Visibility.Visible;
             RandMaxPeopleOneTime = settings.RandSettings.RandWindowOnceMaxStudents;
-            RandDoneAutoCloseWaitTime = (int)settings.RandSettings.RandWindowOnceCloseLatency*1000;
+            RandDoneAutoCloseWaitTime = (int)settings.RandSettings.RandWindowOnceCloseLatency * 1000;
         }
 
-        public RandWindow(Settings settings, bool IsAutoClose) {
+        public RandWindow(Settings settings, bool IsAutoClose)
+        {
             InitializeComponent();
             isAutoClose = IsAutoClose;
             PeopleControlPane.Opacity = 0.4;
@@ -32,9 +39,11 @@ namespace Ink_Canvas {
             RandMaxPeopleOneTime = settings.RandSettings.RandWindowOnceMaxStudents;
             RandDoneAutoCloseWaitTime = (int)settings.RandSettings.RandWindowOnceCloseLatency * 1000;
 
-            new Thread(new ThreadStart(() => {
+            new Thread(new ThreadStart(() =>
+            {
                 Thread.Sleep(100);
-                Application.Current.Dispatcher.Invoke(() => {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
                     BorderBtnRand_MouseUp(BorderBtnRand, null);
                 });
             })).Start();
@@ -48,7 +57,8 @@ namespace Ink_Canvas {
         public int PeopleCount = 60;
         public List<string> Names = new List<string>();
 
-        private void BorderBtnAdd_MouseUp(object sender, MouseButtonEventArgs e) {
+        private void BorderBtnAdd_MouseUp(object sender, MouseButtonEventArgs e)
+        {
             if (RandMaxPeopleOneTime == -1 && TotalCount >= PeopleCount) return;
             if (RandMaxPeopleOneTime != -1 && TotalCount >= RandMaxPeopleOneTime) return;
             TotalCount++;
@@ -58,11 +68,13 @@ namespace Ink_Canvas {
             BorderBtnMinus.Opacity = 1;
         }
 
-        private void BorderBtnMinus_MouseUp(object sender, MouseButtonEventArgs e) {
+        private void BorderBtnMinus_MouseUp(object sender, MouseButtonEventArgs e)
+        {
             if (TotalCount < 2) return;
             TotalCount--;
             LabelNumberCount.Text = TotalCount.ToString();
-            if (TotalCount == 1) {
+            if (TotalCount == 1)
+            {
                 SymbolIconStart.Symbol = Symbol.Contact;
             }
         }
@@ -74,17 +86,25 @@ namespace Ink_Canvas {
 
         private void BorderBtnRand_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            if (CheckBoxNotRepeatName.IsChecked == true && drawnIndices.Count + TotalCount > PeopleCount)
+            {
+                MessageBox.Show("没有足够的未被抽过的人！", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             List<string> outputs = new List<string>();
             List<int> rands = new List<int>();
 
             LabelOutput2.Visibility = Visibility.Collapsed;
             LabelOutput3.Visibility = Visibility.Collapsed;
 
-            new Thread(new ThreadStart(() => {
+            new Thread(new ThreadStart(() =>
+            {
                 for (int i = 0; i < RandWaitingTimes; i++)
                 {
                     int rand = GetRandomNumber(1, PeopleCount + 1);
-                    Application.Current.Dispatcher.Invoke(() => {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
                         if (Names.Count != 0)
                         {
                             LabelOutput.Content = Names[rand - 1];
@@ -101,10 +121,20 @@ namespace Ink_Canvas {
                 List<int> shuffledIndices = Enumerable.Range(0, PeopleCount).ToList();
                 Shuffle(shuffledIndices);
 
-                Application.Current.Dispatcher.Invoke(() => {
-                    for (int i = 0; i < TotalCount; i++)
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    int count = 0;
+                    for (int i = 0; i < shuffledIndices.Count && count < TotalCount; i++)
                     {
                         int index = shuffledIndices[i];
+                        if (CheckBoxNotRepeatName.IsChecked == true)
+                        {
+                            if (drawnIndices.Contains(index))
+                            {
+                                continue;
+                            }
+                            drawnIndices.Add(index);
+                        }
                         if (Names.Count != 0)
                         {
                             outputs.Add(Names[index]);
@@ -113,13 +143,17 @@ namespace Ink_Canvas {
                         {
                             outputs.Add((index + 1).ToString());
                         }
+                        count++;
                     }
+
                     UpdateLabelOutputs(outputs);
                     if (isAutoClose)
                     {
-                        new Thread(new ThreadStart(() => {
+                        new Thread(new ThreadStart(() =>
+                        {
                             Thread.Sleep(RandDoneAutoCloseWaitTime);
-                            Application.Current.Dispatcher.Invoke(() => {
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
                                 PeopleControlPane.Opacity = 1;
                                 PeopleControlPane.IsHitTestVisible = true;
                                 Close();
@@ -178,22 +212,28 @@ namespace Ink_Canvas {
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) {
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             Names = new List<string>();
-            if (File.Exists(App.RootPath + "Names.txt")) {
+            if (File.Exists(App.RootPath + "Names.txt"))
+            {
                 string[] fileNames = File.ReadAllLines(App.RootPath + "Names.txt");
                 string[] replaces = new string[0];
 
-                if (File.Exists(App.RootPath + "Replace.txt")) {
+                if (File.Exists(App.RootPath + "Replace.txt"))
+                {
                     replaces = File.ReadAllLines(App.RootPath + "Replace.txt");
                 }
 
                 //Fix emtpy lines
-                foreach (string str in fileNames) {
+                foreach (string str in fileNames)
+                {
                     string s = str;
                     //Make replacement
-                    foreach (string replace in replaces) {
-                        if (s == Strings.Left(replace, replace.IndexOf("-->"))) {
+                    foreach (string replace in replaces)
+                    {
+                        if (s == Strings.Left(replace, replace.IndexOf("-->")))
+                        {
                             s = Strings.Mid(replace, replace.IndexOf("-->") + 4);
                         }
                     }
@@ -203,19 +243,22 @@ namespace Ink_Canvas {
 
                 PeopleCount = Names.Count();
                 TextBlockPeopleCount.Text = PeopleCount.ToString();
-                if (PeopleCount == 0) {
+                if (PeopleCount == 0)
+                {
                     PeopleCount = 60;
                     TextBlockPeopleCount.Text = "点击此处以导入名单";
                 }
             }
         }
 
-        private void BorderBtnHelp_MouseUp(object sender, MouseButtonEventArgs e) {
+        private void BorderBtnHelp_MouseUp(object sender, MouseButtonEventArgs e)
+        {
             new NamesInputWindow().ShowDialog();
             Window_Loaded(this, null);
         }
 
-        private void BtnClose_MouseUp(object sender, MouseButtonEventArgs e) {
+        private void BtnClose_MouseUp(object sender, MouseButtonEventArgs e)
+        {
             Close();
         }
     }
