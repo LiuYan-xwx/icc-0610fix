@@ -2,7 +2,7 @@
 
 <img src="icc.png" width="128">
 
-# InkCanvasForClass
+# icc-0610fix
 
 Elegant by Default. Based on `ChangSakura/InkCanvas` .
 
@@ -11,26 +11,14 @@ Elegant by Default. Based on `ChangSakura/InkCanvas` .
 [![UPSTREAM](https://img.shields.io/badge/UpStream-ChangSakura%2FInk--Canvas-red.svg "LICENSE")](https://github.com/ChangSakura/Ink-Canvas)
 ![Gitea Last Commit](https://img.shields.io/gitea/last-commit/kriastans/InkCanvasForClass?gitea_url=https%3A%2F%2Fgitea.bliemhax.com%2F)
 [![LICENSE](https://img.shields.io/badge/License-GPL--3.0-red.svg "LICENSE")](https://gitea.bliemhax.com/kriastans/InkCanvasForClass/src/branch/master/LICENSE)
-[![交流群](https://img.shields.io/badge/-%E4%BA%A4%E6%B5%81%E7%BE%A4%20825759306-blue?style=flat&logo=TencentQQ)]()
-[![Telegram](https://img.shields.io/badge/-Telegram%20@InkCanvasForClass-blue?style=flat&logo=Telegram)](https://t.me/InkCanvasForClass)
 
 ![Screenshot-1](./Images/icc1.png)
 ![Screenshot-2](./Images/icc2.png)
 
 </div>
 
-## 贊助支持
-
-我已註冊愛發電，感謝各位對icc的支持！[https://afdian.net/a/dubi906w](https://afdian.net/a/dubi906w)
-
-## 新網站即將上線！
-新網站即將上線，快來一起和InkCanvasForClass見證美好時刻吧！[點我訪問](https://icc.bliemhax.com/)
-
-## 嚴正聲明
-本產品與peppy的osu!以及其周邊項目和產品無任何關聯，該Logo僅供娛樂用，若有侵權，請聯繫Dev協商解決。
-
 ## 公告
-该项目旨在为ICA提供更加舒适和易于使用的UI和用户体验，对于任何墨迹书写方面的Bug如果本人无法修复将不会被修复。
+该项目皆在基于 旧版 InkCanvasForClass 的基础上进行维护和修复。该项目将于2025年2月16日恢复维护。
 
 ## 前言
 使用和分發本軟體前，請您應當且務必知曉相關開源協議，本軟體基於 https://github.com/ChangSakura/Ink-Canvas 修改而成，而ICA又基於 https://github.com/WXRIW/Ink-Canvas 修改而成，增添了包括但不限於隱藏到側邊欄等功能，更改了相關UI和軟體操作邏輯。對於墨跡書寫功能以及ICA獨有功能的相關 issue 提出，應優先查閱 https://github.com/WXRIW/Ink-Canvas/issues 。
@@ -74,10 +62,6 @@ ICC 可以支持 WPS，但目前無法同時支持 MSOffice 和 WPS。若要啟�
 請檢查你的電腦上是否安裝了 `.Net Framework 4.7.2` 或更高版本。若沒有，請前往官網下載  
 
 > 遇到各種奇葩逗比問題請重啟應用程式，如果不行請反饋給Dev解決！
-
-## 如何聯繫我
-1. QQ群聊：825759306
-2. Telegram頻道：@InkCanvasForClass
 
 ## 特別鳴謝
 
