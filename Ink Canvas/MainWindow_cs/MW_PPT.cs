@@ -473,27 +473,6 @@ namespace Ink_Canvas {
 
                 StackPanelPPTControls.Visibility = Visibility.Visible;
 
-                // -- old --
-                //if (Settings.PowerPointSettings.IsShowBottomPPTNavigationPanel && !isFloatingBarFolded)
-                //    AnimationsHelper.ShowWithSlideFromBottomAndFade(BottomViewboxPPTSidesControl);
-                //else
-                //    BottomViewboxPPTSidesControl.Visibility = Visibility.Collapsed;
-
-                //if (Settings.PowerPointSettings.IsShowSidePPTNavigationPanel && !isFloatingBarFolded) {
-
-                //    AnimationsHelper.ShowWithScaleFromRight(RightSidePanelForPPTNavigation);
-                //} else {
-                //    LeftSidePanelForPPTNavigation.Visibility = Visibility.Collapsed;
-                //    RightSidePanelForPPTNavigation.Visibility = Visibility.Collapsed;
-                //}
-                // -- old --
-
-                // -- new --
-                if (!isFloatingBarFolded) {
-                    UpdatePPTBtnDisplaySettingsStatus();
-                    UpdatePPTBtnStyleSettingsStatus();
-                }
-
                 BtnPPTSlideShow.Visibility = Visibility.Collapsed;
                 BtnPPTSlideShowEnd.Visibility = Visibility.Visible;
                 ViewBoxStackPanelMain.Margin = new Thickness(10, 10, 10, 10);
@@ -533,6 +512,11 @@ namespace Ink_Canvas {
                 isEnteredSlideShowEndEvent = false;
                 PPTBtnPageNow.Text = $"{Wn.View.CurrentShowPosition}";
                 PPTBtnPageTotal.Text = $"/ {Wn.Presentation.Slides.Count}";
+                if (!isFloatingBarFolded)
+                {
+                    UpdatePPTBtnDisplaySettingsStatus();
+                    UpdatePPTBtnStyleSettingsStatus();
+                }
                 LogHelper.NewLog("PowerPoint Slide Show Loading process complete");
 
                 if (!isFloatingBarFolded) {

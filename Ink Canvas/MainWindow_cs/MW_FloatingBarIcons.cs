@@ -600,6 +600,8 @@ namespace Ink_Canvas {
                 BlackBoardWaterMark.Visibility = Visibility.Collapsed;
                 ICCWaterMarkDark.Visibility = Visibility.Collapsed;
                 ICCWaterMarkWhite.Visibility = Visibility.Collapsed;
+                UpdatePPTBtnDisplaySettingsStatus();
+                UpdatePPTBtnStyleSettingsStatus();
             }
 
             BtnSwitch_Click(BtnSwitch, null);
