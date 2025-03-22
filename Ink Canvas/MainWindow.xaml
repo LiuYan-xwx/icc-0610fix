@@ -25,7 +25,6 @@
         MouseWheel="Window_MouseWheel"
         Foreground="Black"
         SizeChanged="MainWindow_OnSizeChanged"
-        MouseMove="MainWindow_OnMouseMove"
         Stylus.IsPressAndHoldEnabled="False"
         Stylus.IsFlicksEnabled="False"
         Stylus.IsTapFeedbackEnabled="False"
