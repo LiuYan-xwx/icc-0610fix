@@ -228,19 +228,19 @@
                                 <ui:SimpleStackPanel Spacing="6">
                                     <ui:ToggleSwitch OnContent="" OffContent="" Visibility="Collapsed"
                                                      Name="ToggleSwitchIsAutoUpdate" Header="自动检查更新"
-                                                     FontFamily="Microsoft YaHei UI"
-                                                     Toggled="ToggleSwitchIsAutoUpdate_Toggled" />
+                                                      IsOn="{Binding IsAutoUpdate, Mode=TwoWay}"
+                                                      FontFamily="Microsoft YaHei UI" />
                                     <ui:ToggleSwitch OnContent="" OffContent="" Visibility="Collapsed"
                                                      Name="ToggleSwitchIsAutoUpdateWithSilence" Header="静默更新"
-                                                     FontFamily="Microsoft YaHei UI"
-                                                     Toggled="ToggleSwitchIsAutoUpdateWithSilence_Toggled" />
+                                                      IsOn="{Binding IsAutoUpdateWithSilence, Mode=TwoWay}"
+                                                      FontFamily="Microsoft YaHei UI" />
                                     <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Padding="12"
-                                            Visibility="{Binding ElementName=ToggleSwitchIsAutoUpdateWithSilence, Path=Visibility}">
+                                             Visibility="{Binding IsAutoUpdateWithSilenceVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                         <ui:SimpleStackPanel Spacing="12">
                                             <TextBlock
                                                 Text="# 关闭静默更新后，已完成安装包的下载后将会弹窗询问是否进行更新，开启静默更新后将会在安装包下载完成后每隔十分钟进行如下检测：①处于静默更新时间段内 ②未处于书写模式 ③未处于画板内。若以上检测通过即会关闭软件进行自动更新。"
                                                 TextWrapping="Wrap" Foreground="#a1a1aa" />
-                                            <ui:SimpleStackPanel x:Name="AutoUpdateTimePeriodBlock" Spacing="12">
+                                             <ui:SimpleStackPanel x:Name="AutoUpdateTimePeriodBlock" Spacing="12" Visibility="{Binding AutoUpdateTimePeriodBlockVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                                                 <ui:SimpleStackPanel Spacing="12">
                                                     <TextBlock Text="静默更新时间段" FontSize="15" FontWeight="Bold"
                                                                TextWrapping="Wrap" Foreground="Black" />
@@ -251,7 +251,7 @@
                                                                        Foreground="Black" />
                                                             <ComboBox x:Name="AutoUpdateWithSilenceStartTimeComboBox"
                                                                       Width="90"
-                                                                      SelectionChanged="AutoUpdateWithSilenceStartTimeComboBox_SelectionChanged" />
+                                                                       SelectedIndex="{Binding AutoUpdateWithSilenceStartTime, Mode=TwoWay}" />
                                                         </ui:SimpleStackPanel>
                                                         <ui:SimpleStackPanel Orientation="Horizontal">
                                                             <TextBlock Margin="0,0,10,0" VerticalAlignment="Center"
@@ -259,7 +259,7 @@
                                                                        Foreground="Black" />
                                                             <ComboBox x:Name="AutoUpdateWithSilenceEndTimeComboBox"
                                                                       Width="90"
-                                                                      SelectionChanged="AutoUpdateWithSilenceEndTimeComboBox_SelectionChanged" />
+                                                                       SelectedIndex="{Binding AutoUpdateWithSilenceEndTime, Mode=TwoWay}" />
                                                         </ui:SimpleStackPanel>
                                                     </ui:SimpleStackPanel>
                                                     <TextBlock Width="340" HorizontalAlignment="Left"
@@ -273,15 +273,13 @@
                                         <TextBlock Foreground="#fafafa" Text="开机时运行" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchRunAtStartup"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchRunAtStartup_Toggled" />
+                                                          IsOn="{Binding RunAtStartup, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <TextBlock Foreground="#fafafa" Text="开机运行后收纳到侧边栏" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchFoldAtStartup"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchFoldAtStartup_Toggled" />
+                                                          IsOn="{Binding FoldAtStartup, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <!--
                 <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchAutoHideCanvas" Header="自动隐藏画板" FontFamily="Microsoft YaHei UI" Toggled="ToggleSwitchAutoHideCanvas_Toggled"/>
@@ -299,15 +297,13 @@
                                         <TextBlock Foreground="#fafafa" Text="显示画笔光标" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchShowCursor"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchShowCursor_Toggled" />
+                                                          IsOn="{Binding IsShowCursor, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <TextBlock Foreground="#fafafa" Text="橡皮大小" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ComboBox Name="ComboBoxEraserSize" FontFamily="Microsoft YaHei UI"
-                                                  SelectedIndex="2"
-                                                  SelectionChanged="ComboBoxEraserSize_SelectionChanged">
+                                                   SelectedIndex="{Binding EraserSize, Mode=TwoWay}">
                                             <ComboBoxItem Content="很小" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="较小" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="中等" FontFamily="Microsoft YaHei UI" />
@@ -322,9 +318,8 @@
                                         <TextBlock Foreground="#fafafa" Text="退出画板模式后隐藏墨迹" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent=""
-                                                         Name="ToggleSwitchHideStrokeWhenSelecting" IsOn="True"
-                                                         FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchHideStrokeWhenSelecting_Toggled" />
+                                                          Name="ToggleSwitchHideStrokeWhenSelecting" IsOn="{Binding HideStrokeWhenSelecting, Mode=TwoWay}"
+                                                          FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <TextBlock Text="# 开启 退出画板模式后隐藏墨迹 选项后，进入 PPT 模式时未处于批注模式时不会显示墨迹。"
                                                TextWrapping="Wrap" Foreground="#a1a1aa" />
@@ -332,9 +327,8 @@
                                         <TextBlock Foreground="#fafafa" Text="清空墨迹时删除墨迹历史记录" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent=""
-                                                         Name="ToggleSwitchClearCanvasAndClearTimeMachine" IsOn="True"
-                                                         FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchClearCanvasAndClearTimeMachine_Toggled" />
+                                                          Name="ToggleSwitchClearCanvasAndClearTimeMachine" IsOn="{Binding ClearCanvasAndClearTimeMachine, Mode=TwoWay}"
+                                                          FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <Line HorizontalAlignment="Center" X1="0" Y1="0" X2="400" Y2="0" Stroke="#3f3f46"
                                           StrokeThickness="1" Margin="0,4,0,4" />
@@ -342,8 +336,7 @@
                                         <TextBlock Foreground="#fafafa" Text="保留双曲线渐近线" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ComboBox Name="ComboBoxHyperbolaAsymptoteOption"
-                                                  FontFamily="Microsoft YaHei UI" SelectedIndex="0"
-                                                  SelectionChanged="ComboBoxHyperbolaAsymptoteOption_SelectionChanged">
+                                                   FontFamily="Microsoft YaHei UI" SelectedIndex="{Binding HyperbolaAsymptoteOption, Mode=TwoWay}">
                                             <ComboBoxItem Content="是" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="否" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="每次询问" FontFamily="Microsoft YaHei UI" />
@@ -355,8 +348,7 @@
                                         <TextBlock Foreground="#fafafa" Text="让墨迹使用贝塞尔曲线平滑处理"
                                                    VerticalAlignment="Center" FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchFitToCurve"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchFitToCurve_Toggled" />
+                                                          IsOn="{Binding FitToCurve, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                 </ui:SimpleStackPanel>
                             </GroupBox>
@@ -472,8 +464,7 @@
                                         <TextBlock Foreground="#fafafa" Text="浮动工具栏图标" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ComboBox Name="ComboBoxFloatingBarImg" FontFamily="Microsoft YaHei UI"
-                                                  SelectedIndex="0"
-                                                  SelectionChanged="ComboBoxFloatingBarImg_SelectionChanged">
+                                                   SelectedIndex="{Binding FloatingBarImg, Mode=TwoWay}">
                                             <ComboBoxItem Content="“icc!”默认蓝色" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="“icc!”黑色透明版" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="酷安斗鸡眼滑稽" FontFamily="Microsoft YaHei UI" />
@@ -489,11 +480,10 @@
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <Slider x:Name="ViewboxFloatingBarScaleTransformValueSlider" Minimum="0.5"
                                                 Maximum="1.25" Width="168" FontFamily="Microsoft YaHei UI"
-                                                FontSize="20" IsSnapToTickEnabled="True" Value="1" TickFrequency="0.05"
-                                                TickPlacement="None" AutoToolTipPlacement="None"
-                                                ValueChanged="ViewboxFloatingBarScaleTransformValueSlider_ValueChanged" />
+                                                FontSize="20" IsSnapToTickEnabled="True" Value="{Binding ViewboxFloatingBarScaleTransformValue, Mode=TwoWay}" TickFrequency="0.05"
+                                                TickPlacement="None" AutoToolTipPlacement="None" />
                                         <TextBlock
-                                            Text="{Binding ElementName=ViewboxFloatingBarScaleTransformValueSlider, Path=Value}"
+                                            Text="{Binding ViewboxFloatingBarScaleTransformValue, Mode=OneWay}"
                                             VerticalAlignment="Center" FontSize="14" FontFamily="Consolas"
                                             Margin="12,0,16,0" />
                                     </ui:SimpleStackPanel>
@@ -502,11 +492,10 @@
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <Slider x:Name="ViewboxFloatingBarOpacityValueSlider" Minimum="0.3"
                                                 Maximum="1" Width="168" FontFamily="Microsoft YaHei UI"
-                                                FontSize="20" IsSnapToTickEnabled="True" Value="1" TickFrequency="0.05"
-                                                TickPlacement="None" AutoToolTipPlacement="None"
-                                                ValueChanged="ViewboxFloatingBarOpacityValueSlider_ValueChanged" />
+                                                 FontSize="20" IsSnapToTickEnabled="True" Value="{Binding ViewboxFloatingBarOpacityValue, Mode=TwoWay}" TickFrequency="0.05"
+                                                 TickPlacement="None" AutoToolTipPlacement="None" />
                                         <TextBlock
-                                            Text="{Binding ElementName=ViewboxFloatingBarOpacityValueSlider, Path=Value}"
+                                             Text="{Binding ViewboxFloatingBarOpacityValue, Mode=OneWay}"
                                             VerticalAlignment="Center" FontSize="14" FontFamily="Consolas"
                                             Margin="12,0,16,0" />
                                     </ui:SimpleStackPanel>
@@ -515,11 +504,10 @@
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <Slider x:Name="ViewboxFloatingBarOpacityInPPTValueSlider" Minimum="0.3"
                                                 Maximum="1" Width="168" FontFamily="Microsoft YaHei UI"
-                                                FontSize="20" IsSnapToTickEnabled="True" Value="1" TickFrequency="0.05"
-                                                TickPlacement="None" AutoToolTipPlacement="None"
-                                                ValueChanged="ViewboxFloatingBarOpacityInPPTValueSlider_ValueChanged" />
+                                                 FontSize="20" IsSnapToTickEnabled="True" Value="{Binding ViewboxFloatingBarOpacityInPPTValue, Mode=TwoWay}" TickFrequency="0.05"
+                                                 TickPlacement="None" AutoToolTipPlacement="None" />
                                         <TextBlock
-                                            Text="{Binding ElementName=ViewboxFloatingBarOpacityInPPTValueSlider, Path=Value}"
+                                             Text="{Binding ViewboxFloatingBarOpacityInPPTValue, Mode=OneWay}"
                                             VerticalAlignment="Center" FontSize="14" FontFamily="Consolas"
                                             Margin="12,0,16,0" />
                                     </ui:SimpleStackPanel>
@@ -531,9 +519,8 @@
                                         <TextBlock Foreground="#fafafa" Text="在调色盘窗口中显示 笔尖模式 按钮"
                                                    VerticalAlignment="Center" FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent=""
-                                                         Name="ToggleSwitchEnableDisPlayNibModeToggle" IsOn="True"
-                                                         FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchEnableDisPlayNibModeToggle_Toggled" />
+                                                          Name="ToggleSwitchEnableDisPlayNibModeToggle" IsOn="{Binding IsEnableDisPlayNibModeToggler, Mode=TwoWay}"
+                                                          FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <Line HorizontalAlignment="Center" X1="0" Y1="0" X2="400" Y2="0"
                                           Stroke="#3f3f46" StrokeThickness="1" Margin="0,4,0,4" />
@@ -547,16 +534,14 @@
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent=""
                                                          Name="ToggleSwitchEnableViewboxBlackBoardScaleTransform"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchEnableViewboxBlackBoardScaleTransform_Toggled" />
+                                                          IsOn="{Binding EnableViewboxBlackBoardScaleTransform, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <TextBlock Foreground="#fafafa" Text="在白板中显示当前时间和日期" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent=""
                                                          Name="ToggleSwitchEnableTimeDisplayInWhiteboardMode"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchEnableTimeDisplayInWhiteboardMode_Toggled" />
+                                                          IsOn="{Binding EnableTimeDisplayInWhiteboardMode, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <TextBlock Foreground="#fafafa" Text="在白板中显示信仰の源1（好喝的/毒的鸡汤）"
@@ -564,15 +549,13 @@
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent=""
                                                          Name="ToggleSwitchEnableChickenSoupInWhiteboardMode"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchEnableChickenSoupInWhiteboardMode_Toggled" />
+                                                          IsOn="{Binding EnableChickenSoupInWhiteboardMode, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <TextBlock Foreground="#fafafa" Text="信仰の源出自Where？" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ComboBox Name="ComboBoxChickenSoupSource" FontFamily="Microsoft YaHei UI"
-                                                  SelectedIndex="1"
-                                                  SelectionChanged="ComboBoxChickenSoupSource_SelectionChanged">
+                                                   SelectedIndex="{Binding ChickenSoupSource, Mode=TwoWay}">
                                             <ComboBoxItem Content="osu!玩家语录" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="励志立志的名言警句" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="高考祝福语" FontFamily="Microsoft YaHei UI" />
@@ -584,15 +567,13 @@
                                         <TextBlock Foreground="#fafafa" Text="在收纳模式下启用快速面板" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchEnableQuickPanel"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchEnableQuickPanel_Toggled" />
+                                                          IsOn="{Binding IsShowQuickPanel, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <TextBlock Foreground="#fafafa" Text="取消收纳按钮图标" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ComboBox Name="ComboBoxUnFoldBtnImg" FontFamily="Microsoft YaHei UI"
-                                                  SelectedIndex="0"
-                                                  SelectionChanged="ComboBoxUnFoldBtnImg_SelectionChanged">
+                                                   SelectedIndex="{Binding UnFoldButtonImageType, Mode=TwoWay}">
                                             <ComboBoxItem Content="箭头" FontFamily="Microsoft YaHei UI" />
                                             <ComboBoxItem Content="笔" FontFamily="Microsoft YaHei UI" />
                                         </ComboBox>
@@ -627,7 +608,8 @@
                                                     </Image.Source>
                                                 </Image>
                                                 <Image Name="ICCTrayIconExampleImage" Height="24" Width="24"
-                                                       Source="Resources/icc.ico" Margin="8,0,0,0" />
+                                                         Source="Resources/icc.ico" Margin="8,0,0,0"
+                                                         Visibility="{Binding EnableTrayIcon, Converter={StaticResource BooleanToVisibilityConverter}}" />
                                             </ui:SimpleStackPanel>
                                             <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="任务栏托盘图标"
                                                        FontWeight="Bold" Foreground="#fafafa"
@@ -638,8 +620,7 @@
                                         <TextBlock Foreground="#fafafa" Text="启用托盘图标" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchEnableTrayIcon"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchEnableTrayIcon_Toggled" />
+                                                         IsOn="{Binding EnableTrayIcon, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                 </ui:SimpleStackPanel>
                             </GroupBox>
@@ -1159,8 +1140,7 @@
                                         <TextBlock Foreground="#fafafa" Text="记录日志" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
                                         <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchIsLogEnabled"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchIsLogEnabled_Toggled" />
+                                                         IsOn="{Binding IsLogEnabled, Mode=TwoWay}" FontFamily="Microsoft YaHei UI" FontWeight="Bold" />
                                     </ui:SimpleStackPanel>
                                     <TextBlock Text="# 日志文件超过 512 KB 时会自动删除。" TextWrapping="Wrap" Foreground="#a1a1aa" />
                                     <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
@@ -3778,8 +3758,7 @@
                                                                VerticalAlignment="Center" />
                                                         <Viewbox Margin="8,0,0,0" Height="20" Width="52">
                                                             <ComboBox Name="BoardComboBoxEraserSize"
-                                                                      FontFamily="Microsoft YaHei UI" SelectedIndex="2"
-                                                                      SelectionChanged="ComboBoxEraserSizeFloatingBar_SelectionChanged">
+                                                                       FontFamily="Microsoft YaHei UI" SelectedIndex="{Binding EraserSize, Mode=TwoWay}">
                                                                 <ComboBoxItem Content="很小"
                                                                               FontFamily="Microsoft YaHei UI" />
                                                                 <ComboBoxItem Content="较小"
@@ -6423,8 +6402,7 @@
                                                        VerticalAlignment="Center" />
                                                 <Viewbox Margin="8,0,0,0" Height="20" Width="52">
                                                     <ComboBox Name="ComboBoxEraserSizeFloatingBar"
-                                                              FontFamily="Microsoft YaHei UI" SelectedIndex="2"
-                                                              SelectionChanged="ComboBoxEraserSizeFloatingBar_SelectionChanged">
+                                                               FontFamily="Microsoft YaHei UI" SelectedIndex="{Binding EraserSize, Mode=TwoWay}">
                                                         <ComboBoxItem Content="很小" FontFamily="Microsoft YaHei UI" />
                                                         <ComboBoxItem Content="较小" FontFamily="Microsoft YaHei UI" />
                                                         <ComboBoxItem Content="中等" FontFamily="Microsoft YaHei UI" />
