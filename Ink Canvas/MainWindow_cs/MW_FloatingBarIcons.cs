@@ -531,24 +531,6 @@ namespace Ink_Canvas {
                     WaterMarkDate.Visibility = Visibility.Collapsed;
                 }
 
-                if (Settings.Appearance.EnableChickenSoupInWhiteboardMode == true)
-                {
-                    BlackBoardWaterMark.Visibility = Visibility.Visible;
-                } else {
-                    BlackBoardWaterMark.Visibility = Visibility.Collapsed;
-                }
-
-                if (Settings.Appearance.ChickenSoupSource == 0) {
-                    int randChickenSoupIndex = new Random().Next(ChickenSoup.OSUPlayerYuLu.Length);
-                    BlackBoardWaterMark.Text = ChickenSoup.OSUPlayerYuLu[randChickenSoupIndex];
-                } else if (Settings.Appearance.ChickenSoupSource == 1) {
-                    int randChickenSoupIndex = new Random().Next(ChickenSoup.MingYanJingJu.Length);
-                    BlackBoardWaterMark.Text = ChickenSoup.MingYanJingJu[randChickenSoupIndex];
-                } else if (Settings.Appearance.ChickenSoupSource == 2) {
-                    int randChickenSoupIndex = new Random().Next(ChickenSoup.GaoKaoPhrases.Length);
-                    BlackBoardWaterMark.Text = ChickenSoup.GaoKaoPhrases[randChickenSoupIndex];
-                }
-
                 if (Settings.Canvas.UsingWhiteboard)
                 {
                     ICCWaterMarkDark.Visibility = Visibility.Visible;
@@ -597,7 +579,6 @@ namespace Ink_Canvas {
                 // if (!isInMultiTouchMode) ToggleSwitchEnableMultiTouchMode.IsOn = true;
                 WaterMarkTime.Visibility = Visibility.Collapsed;
                 WaterMarkDate.Visibility = Visibility.Collapsed;
-                BlackBoardWaterMark.Visibility = Visibility.Collapsed;
                 ICCWaterMarkDark.Visibility = Visibility.Collapsed;
                 ICCWaterMarkWhite.Visibility = Visibility.Collapsed;
                 UpdatePPTBtnDisplaySettingsStatus();

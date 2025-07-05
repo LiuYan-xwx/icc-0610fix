@@ -73,14 +73,12 @@ namespace Ink_Canvas {
                         GridBackgroundCover.Background = new SolidColorBrush(Color.FromRgb(234, 235, 237));
                         WaterMarkTime.Foreground = new SolidColorBrush(Color.FromRgb(22, 41, 36));
                         WaterMarkDate.Foreground = new SolidColorBrush(Color.FromRgb(22, 41, 36));
-                        BlackBoardWaterMark.Foreground = new SolidColorBrush(Color.FromRgb(22, 41, 36));
                         isUselightThemeColor = false;
                     }
                     else {
                         GridBackgroundCover.Background = new SolidColorBrush(Color.FromRgb(22, 41, 36));
                         WaterMarkTime.Foreground = new SolidColorBrush(Color.FromRgb(234, 235, 237));
                         WaterMarkDate.Foreground = new SolidColorBrush(Color.FromRgb(234, 235, 237));
-                        BlackBoardWaterMark.Foreground = new SolidColorBrush(Color.FromRgb(234, 235, 237));
                         isUselightThemeColor = true;
                     }
                 }

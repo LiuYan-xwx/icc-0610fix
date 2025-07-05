@@ -170,22 +170,6 @@ namespace Ink_Canvas {
             }
         }
 
-        private void ComboBoxChickenSoupSource_SelectionChanged(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Appearance.ChickenSoupSource = ComboBoxChickenSoupSource.SelectedIndex;
-            SaveSettingsToFile();
-            if (Settings.Appearance.ChickenSoupSource == 0) {
-                int randChickenSoupIndex = new Random().Next(ChickenSoup.OSUPlayerYuLu.Length);
-                BlackBoardWaterMark.Text = ChickenSoup.OSUPlayerYuLu[randChickenSoupIndex];
-            } else if (Settings.Appearance.ChickenSoupSource == 1) {
-                int randChickenSoupIndex = new Random().Next(ChickenSoup.MingYanJingJu.Length);
-                BlackBoardWaterMark.Text = ChickenSoup.MingYanJingJu[randChickenSoupIndex];
-            } else if (Settings.Appearance.ChickenSoupSource == 2) {
-                int randChickenSoupIndex = new Random().Next(ChickenSoup.GaoKaoPhrases.Length);
-                BlackBoardWaterMark.Text = ChickenSoup.GaoKaoPhrases[randChickenSoupIndex];
-            }
-        }
-
         private void ToggleSwitchEnableViewboxBlackBoardScaleTransform_Toggled(object sender, RoutedEventArgs e) {
             if (!isLoaded) return;
             Settings.Appearance.EnableViewboxBlackBoardScaleTransform =
@@ -244,21 +228,6 @@ namespace Ink_Canvas {
                 } else {
                     WaterMarkTime.Visibility = Visibility.Collapsed;
                     WaterMarkDate.Visibility = Visibility.Collapsed;
-                }
-            }
-
-            SaveSettingsToFile();
-            LoadSettings();
-        }
-
-        private void ToggleSwitchEnableChickenSoupInWhiteboardMode_Toggled(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Appearance.EnableChickenSoupInWhiteboardMode = ToggleSwitchEnableChickenSoupInWhiteboardMode.IsOn;
-            if (currentMode == 1) {
-                if (ToggleSwitchEnableTimeDisplayInWhiteboardMode.IsOn) {
-                    BlackBoardWaterMark.Visibility = Visibility.Visible;
-                } else {
-                    BlackBoardWaterMark.Visibility = Visibility.Collapsed;
                 }
             }
 
@@ -1349,9 +1318,7 @@ namespace Ink_Canvas {
             Settings.Appearance.IsShowModeFingerToggleSwitch = true;
             Settings.Appearance.IsShowQuickPanel = true;
             Settings.Appearance.Theme = 0;
-            Settings.Appearance.EnableChickenSoupInWhiteboardMode = true;
             Settings.Appearance.EnableTimeDisplayInWhiteboardMode = true;
-            Settings.Appearance.ChickenSoupSource = 1;
             Settings.Appearance.ViewboxFloatingBarOpacityValue = 1.0;
             Settings.Appearance.ViewboxFloatingBarOpacityInPPTValue = 1.0;
             Settings.Appearance.EnableTrayIcon = true;
