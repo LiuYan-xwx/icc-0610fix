@@ -226,49 +226,7 @@
                                                FontSize="26" />
                                 </GroupBox.Header>
                                 <ui:SimpleStackPanel Spacing="6">
-                                    <ui:ToggleSwitch OnContent="" OffContent="" Visibility="Collapsed"
-                                                     Name="ToggleSwitchIsAutoUpdate" Header="自动检查更新"
-                                                     FontFamily="Microsoft YaHei UI"
-                                                     Toggled="ToggleSwitchIsAutoUpdate_Toggled" />
-                                    <ui:ToggleSwitch OnContent="" OffContent="" Visibility="Collapsed"
-                                                     Name="ToggleSwitchIsAutoUpdateWithSilence" Header="静默更新"
-                                                     FontFamily="Microsoft YaHei UI"
-                                                     Toggled="ToggleSwitchIsAutoUpdateWithSilence_Toggled" />
-                                    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="5" Padding="12"
-                                            Visibility="{Binding ElementName=ToggleSwitchIsAutoUpdateWithSilence, Path=Visibility}">
-                                        <ui:SimpleStackPanel Spacing="12">
-                                            <TextBlock
-                                                Text="# 关闭静默更新后，已完成安装包的下载后将会弹窗询问是否进行更新，开启静默更新后将会在安装包下载完成后每隔十分钟进行如下检测：①处于静默更新时间段内 ②未处于书写模式 ③未处于画板内。若以上检测通过即会关闭软件进行自动更新。"
-                                                TextWrapping="Wrap" Foreground="#a1a1aa" />
-                                            <ui:SimpleStackPanel x:Name="AutoUpdateTimePeriodBlock" Spacing="12">
-                                                <ui:SimpleStackPanel Spacing="12">
-                                                    <TextBlock Text="静默更新时间段" FontSize="15" FontWeight="Bold"
-                                                               TextWrapping="Wrap" Foreground="Black" />
-                                                    <ui:SimpleStackPanel Orientation="Horizontal" Spacing="12">
-                                                        <ui:SimpleStackPanel Orientation="Horizontal">
-                                                            <TextBlock Margin="0,0,10,0" VerticalAlignment="Center"
-                                                                       Text="起始时间" FontSize="14" TextWrapping="Wrap"
-                                                                       Foreground="Black" />
-                                                            <ComboBox x:Name="AutoUpdateWithSilenceStartTimeComboBox"
-                                                                      Width="90"
-                                                                      SelectionChanged="AutoUpdateWithSilenceStartTimeComboBox_SelectionChanged" />
-                                                        </ui:SimpleStackPanel>
-                                                        <ui:SimpleStackPanel Orientation="Horizontal">
-                                                            <TextBlock Margin="0,0,10,0" VerticalAlignment="Center"
-                                                                       Text="终止时间" FontSize="14" TextWrapping="Wrap"
-                                                                       Foreground="Black" />
-                                                            <ComboBox x:Name="AutoUpdateWithSilenceEndTimeComboBox"
-                                                                      Width="90"
-                                                                      SelectionChanged="AutoUpdateWithSilenceEndTimeComboBox_SelectionChanged" />
-                                                        </ui:SimpleStackPanel>
-                                                    </ui:SimpleStackPanel>
-                                                    <TextBlock Width="340" HorizontalAlignment="Left"
-                                                               Text="# 若终止时间小于起始时间，即将终止时间视为第二天的时间。# 若起始时间与终止时间相同，即视为全天候时间。"
-                                                               TextWrapping="Wrap" Foreground="#a1a1aa" />
-                                                </ui:SimpleStackPanel>
-                                            </ui:SimpleStackPanel>
-                                        </ui:SimpleStackPanel>
-                                    </Border>
+                                    
                                     <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                                         <TextBlock Foreground="#fafafa" Text="开机时运行" VerticalAlignment="Center"
                                                    FontSize="14" Margin="0,0,16,0" />
@@ -388,78 +346,6 @@
                                     </ui:SimpleStackPanel>
                                     <TextBlock Text="# 允许选中墨迹后对墨迹进行双指或多指缩放操作（此设置不受“允许双指旋转”设置的影响）" TextWrapping="Wrap"
                                                Foreground="#a1a1aa" />
-                                </ui:SimpleStackPanel>
-                            </GroupBox>
-                            <GroupBox Name="GroupBoxInkRecognition">
-                                <GroupBox.Header>
-                                    <TextBlock Margin="0,12,0,0" Text="墨迹纠正" FontWeight="Bold" Foreground="#fafafa"
-                                               FontSize="26" />
-                                </GroupBox.Header>
-                                <ui:SimpleStackPanel Spacing="6">
-                                    <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <TextBlock Foreground="#fafafa" Text="启用墨迹识别" VerticalAlignment="Center"
-                                                   FontSize="14" Margin="0,0,16,0" />
-                                        <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchEnableInkToShape"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchEnableInkToShape_Toggled" />
-                                    </ui:SimpleStackPanel>
-                                    <ui:SimpleStackPanel Spacing="6"
-                                                         Visibility="{Binding ElementName=ToggleSwitchEnableInkToShape, Path=IsOn, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <TextBlock Foreground="#fafafa" Text="阻止矫正后的矩形带有模拟压感值"
-                                                       VerticalAlignment="Center" FontSize="14" Margin="0,0,16,0" />
-                                            <ui:ToggleSwitch OnContent="" OffContent=""
-                                                             Name="ToggleSwitchEnableInkToShapeNoFakePressureRectangle"
-                                                             IsOn="True" FontFamily="Microsoft YaHei UI"
-                                                             FontWeight="Bold"
-                                                             Toggled="ToggleSwitchEnableInkToShapeNoFakePressureRectangle_Toggled" />
-                                        </ui:SimpleStackPanel>
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <TextBlock Foreground="#fafafa" Text="阻止矫正后的三角形带有模拟压感值"
-                                                       VerticalAlignment="Center" FontSize="14" Margin="0,0,16,0" />
-                                            <ui:ToggleSwitch OnContent="" OffContent=""
-                                                             Name="ToggleSwitchEnableInkToShapeNoFakePressureTriangle"
-                                                             IsOn="True" FontFamily="Microsoft YaHei UI"
-                                                             FontWeight="Bold"
-                                                             Toggled="ToggleSwitchEnableInkToShapeNoFakePressureTriangle_Toggled" />
-                                        </ui:SimpleStackPanel>
-                                        <Line HorizontalAlignment="Center" X1="0" Y1="0" X2="400" Y2="0"
-                                              Stroke="#3f3f46" StrokeThickness="1" Margin="0,4,0,4" />
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <CheckBox IsChecked="True" Name="ToggleCheckboxEnableInkToShapeTriangle"
-                                                      Checked="ToggleCheckboxEnableInkToShapeTriangle_CheckedChanged"
-                                                      Unchecked="ToggleCheckboxEnableInkToShapeTriangle_CheckedChanged">
-                                                <CheckBox.Content>
-                                                    <TextBlock Foreground="#fafafa" Text="矫正手绘三角形"
-                                                               VerticalAlignment="Center" FontSize="14"
-                                                               Margin="0,0,16,0" />
-                                                </CheckBox.Content>
-                                            </CheckBox>
-                                        </ui:SimpleStackPanel>
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <CheckBox IsChecked="True" Name="ToggleCheckboxEnableInkToShapeRectangle"
-                                                      Checked="ToggleCheckboxEnableInkToShapeRectangle_CheckedChanged"
-                                                      Unchecked="ToggleCheckboxEnableInkToShapeRectangle_CheckedChanged">
-                                                <CheckBox.Content>
-                                                    <TextBlock Foreground="#fafafa" Text="矫正手绘矩形"
-                                                               VerticalAlignment="Center" FontSize="14"
-                                                               Margin="0,0,16,0" />
-                                                </CheckBox.Content>
-                                            </CheckBox>
-                                        </ui:SimpleStackPanel>
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <CheckBox IsChecked="True" Name="ToggleCheckboxEnableInkToShapeRounded"
-                                                      Checked="ToggleCheckboxEnableInkToShapeRounded_CheckedChanged"
-                                                      Unchecked="ToggleCheckboxEnableInkToShapeRounded_CheckedChanged">
-                                                <CheckBox.Content>
-                                                    <TextBlock Foreground="#fafafa" Text="矫正手绘圆形与椭圆"
-                                                               VerticalAlignment="Center" FontSize="14"
-                                                               Margin="0,0,16,0" />
-                                                </CheckBox.Content>
-                                            </CheckBox>
-                                        </ui:SimpleStackPanel>
-                                    </ui:SimpleStackPanel>
-
                                 </ui:SimpleStackPanel>
                             </GroupBox>
                             <GroupBox Name="GroupBoxAppearanceNewUI">
@@ -3002,20 +2888,6 @@
                                                                                 Toggled="ToggleSwitchEnableNibMode_Toggled"
                                                                                 IsOn="True" />
                                                                         </ui:SimpleStackPanel>
-                                                                        <ui:SimpleStackPanel Orientation="Horizontal"
-                                                                            Width="140">
-                                                                            <Label Margin="0,0,10,0" Content="墨迹纠正"
-                                                                                Foreground="{DynamicResource FloatBarForeground}"
-                                                                                FontSize="15"
-                                                                                VerticalAlignment="Center" />
-                                                                            <ui:ToggleSwitch
-                                                                                Foreground="{DynamicResource FloatBarForeground}"
-                                                                                FontFamily="Microsoft YaHei UI"
-                                                                                Width="70"
-                                                                                Toggled="ToggleSwitchEnableInkToShape_Toggled"
-                                                                                MinWidth="0"
-                                                                                IsOn="{Binding ElementName=ToggleSwitchEnableInkToShape, Path=IsOn}" />
-                                                                        </ui:SimpleStackPanel>
                                                                     </ui:SimpleStackPanel>
                                                                 </Controls:UniformGrid>
 
@@ -5344,18 +5216,6 @@
                                                                             Width="70" Margin="10,0,0,0"
                                                                             Toggled="ToggleSwitchEnableNibMode_Toggled"
                                                                             IsOn="True" />
-                                                                    </ui:SimpleStackPanel>
-                                                                    <ui:SimpleStackPanel Orientation="Horizontal"
-                                                                        Width="140">
-                                                                        <Label Margin="0,0,10,0" Content="墨迹纠正"
-                                                                               Foreground="{DynamicResource FloatBarForeground}"
-                                                                               FontSize="15" VerticalAlignment="Center" />
-                                                                        <ui:ToggleSwitch
-                                                                            Foreground="{DynamicResource FloatBarForeground}"
-                                                                            FontFamily="Microsoft YaHei UI" Width="70"
-                                                                            Toggled="ToggleSwitchEnableInkToShape_Toggled"
-                                                                            MinWidth="0"
-                                                                            IsOn="{Binding ElementName=ToggleSwitchEnableInkToShape, Path=IsOn}" />
                                                                     </ui:SimpleStackPanel>
                                                                 </ui:SimpleStackPanel>
                                                             </Controls:UniformGrid>

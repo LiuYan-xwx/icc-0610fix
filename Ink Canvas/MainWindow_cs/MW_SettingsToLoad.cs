@@ -70,24 +70,7 @@ namespace Ink_Canvas {
                     BoundsWidth = Settings.Advanced.FingerModeBoundsWidth;
                 }
 
-                if (Settings.Startup.IsAutoUpdate) {
-                    ToggleSwitchIsAutoUpdate.IsOn = true;
-                    AutoUpdate();
-                }
-
-                // ToggleSwitchIsAutoUpdateWithSilence.Visibility = Settings.Startup.IsAutoUpdate ? Visibility.Visible : Visibility.Collapsed;
-                if (Settings.Startup.IsAutoUpdateWithSilence) {
-                    ToggleSwitchIsAutoUpdateWithSilence.IsOn = true;
-                }
-
-                AutoUpdateTimePeriodBlock.Visibility = Settings.Startup.IsAutoUpdateWithSilence
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
-
-                AutoUpdateWithSilenceTimeComboBox.InitializeAutoUpdateWithSilenceTimeComboBoxOptions(
-                    AutoUpdateWithSilenceStartTimeComboBox, AutoUpdateWithSilenceEndTimeComboBox);
-                AutoUpdateWithSilenceStartTimeComboBox.SelectedItem = Settings.Startup.AutoUpdateWithSilenceStartTime;
-                AutoUpdateWithSilenceEndTimeComboBox.SelectedItem = Settings.Startup.AutoUpdateWithSilenceEndTime;
+                
 
                 ToggleSwitchFoldAtStartup.IsOn = Settings.Startup.IsFoldAtStartup;
             } else {
@@ -541,25 +524,6 @@ namespace Ink_Canvas {
                     Settings.Advanced.IsEnableResolutionChangeDetection;
             } else {
                 Settings.Advanced = new Advanced();
-            }
-
-            // InkToShape
-            if (Settings.InkToShape != null) {
-                ToggleSwitchEnableInkToShape.IsOn = Settings.InkToShape.IsInkToShapeEnabled;
-
-                ToggleSwitchEnableInkToShapeNoFakePressureRectangle.IsOn =
-                    Settings.InkToShape.IsInkToShapeNoFakePressureRectangle;
-
-                ToggleSwitchEnableInkToShapeNoFakePressureTriangle.IsOn =
-                    Settings.InkToShape.IsInkToShapeNoFakePressureTriangle;
-
-                ToggleCheckboxEnableInkToShapeTriangle.IsChecked = Settings.InkToShape.IsInkToShapeTriangle;
-
-                ToggleCheckboxEnableInkToShapeRectangle.IsChecked = Settings.InkToShape.IsInkToShapeRectangle;
-
-                ToggleCheckboxEnableInkToShapeRounded.IsChecked = Settings.InkToShape.IsInkToShapeRounded;
-            } else {
-                Settings.InkToShape = new InkToShape();
             }
 
             // RandSettings

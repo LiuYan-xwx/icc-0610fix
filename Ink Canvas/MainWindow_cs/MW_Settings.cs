@@ -18,35 +18,6 @@ namespace Ink_Canvas {
     public partial class MainWindow : Window {
         #region Behavior
 
-        private void ToggleSwitchIsAutoUpdate_Toggled(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Startup.IsAutoUpdate = ToggleSwitchIsAutoUpdate.IsOn;
-            ToggleSwitchIsAutoUpdateWithSilence.Visibility =
-                ToggleSwitchIsAutoUpdate.IsOn ? Visibility.Visible : Visibility.Collapsed;
-            SaveSettingsToFile();
-        }
-
-        private void ToggleSwitchIsAutoUpdateWithSilence_Toggled(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Startup.IsAutoUpdateWithSilence = ToggleSwitchIsAutoUpdateWithSilence.IsOn;
-            AutoUpdateTimePeriodBlock.Visibility =
-                Settings.Startup.IsAutoUpdateWithSilence ? Visibility.Visible : Visibility.Collapsed;
-            SaveSettingsToFile();
-        }
-
-        private void AutoUpdateWithSilenceStartTimeComboBox_SelectionChanged(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Startup.AutoUpdateWithSilenceStartTime =
-                (string)AutoUpdateWithSilenceStartTimeComboBox.SelectedItem;
-            SaveSettingsToFile();
-        }
-
-        private void AutoUpdateWithSilenceEndTimeComboBox_SelectionChanged(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Startup.AutoUpdateWithSilenceEndTime = (string)AutoUpdateWithSilenceEndTimeComboBox.SelectedItem;
-            SaveSettingsToFile();
-        }
-
         private void ToggleSwitchRunAtStartup_Toggled(object sender, RoutedEventArgs e) {
             if (!isLoaded) return;
             if (ToggleSwitchRunAtStartup.IsOn) {
@@ -1452,19 +1423,8 @@ namespace Ink_Canvas {
             Settings.Gesture.IsEnableTwoFingerRotation = false;
             Settings.Gesture.IsEnableTwoFingerRotationOnSelection = false;
 
-            Settings.InkToShape.IsInkToShapeEnabled = true;
-            Settings.InkToShape.IsInkToShapeNoFakePressureRectangle = false;
-            Settings.InkToShape.IsInkToShapeNoFakePressureTriangle = false;
-            Settings.InkToShape.IsInkToShapeTriangle = true;
-            Settings.InkToShape.IsInkToShapeRectangle = true;
-            Settings.InkToShape.IsInkToShapeRounded = true;
-
-
             Settings.Startup.IsEnableNibMode = false;
-            Settings.Startup.IsAutoUpdate = true;
-            Settings.Startup.IsAutoUpdateWithSilence = true;
-            Settings.Startup.AutoUpdateWithSilenceStartTime = "18:20";
-            Settings.Startup.AutoUpdateWithSilenceEndTime = "07:40";
+            
             Settings.Startup.IsFoldAtStartup = false;
         }
 
@@ -1496,48 +1456,6 @@ namespace Ink_Canvas {
                 isLoaded = true;
             }
             catch { }
-        }
-
-        #endregion
-
-        #region Ink To Shape
-
-        private void ToggleSwitchEnableInkToShape_Toggled(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.InkToShape.IsInkToShapeEnabled = ToggleSwitchEnableInkToShape.IsOn;
-            SaveSettingsToFile();
-        }
-
-        private void ToggleSwitchEnableInkToShapeNoFakePressureTriangle_Toggled(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.InkToShape.IsInkToShapeNoFakePressureTriangle =
-                ToggleSwitchEnableInkToShapeNoFakePressureTriangle.IsOn;
-            SaveSettingsToFile();
-        }
-
-        private void ToggleSwitchEnableInkToShapeNoFakePressureRectangle_Toggled(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.InkToShape.IsInkToShapeNoFakePressureRectangle =
-                ToggleSwitchEnableInkToShapeNoFakePressureRectangle.IsOn;
-            SaveSettingsToFile();
-        }
-
-        private void ToggleCheckboxEnableInkToShapeTriangle_CheckedChanged(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.InkToShape.IsInkToShapeTriangle = (bool)ToggleCheckboxEnableInkToShapeTriangle.IsChecked;
-            SaveSettingsToFile();
-        }
-
-        private void ToggleCheckboxEnableInkToShapeRectangle_CheckedChanged(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.InkToShape.IsInkToShapeRectangle = (bool)ToggleCheckboxEnableInkToShapeRectangle.IsChecked;
-            SaveSettingsToFile();
-        }
-
-        private void ToggleCheckboxEnableInkToShapeRounded_CheckedChanged(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.InkToShape.IsInkToShapeRounded = (bool)ToggleCheckboxEnableInkToShapeRounded.IsChecked;
-            SaveSettingsToFile();
         }
 
         #endregion

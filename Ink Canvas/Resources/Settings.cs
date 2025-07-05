@@ -16,8 +16,6 @@ namespace Ink_Canvas
         public Canvas Canvas { get; set; } = new Canvas();
         [JsonProperty("gesture")]
         public Gesture Gesture { get; set; } = new Gesture();
-        [JsonProperty("inkToShape")]
-        public InkToShape InkToShape { get; set; } = new InkToShape();
         [JsonProperty("startup")]
         public Startup Startup { get; set; } = new Startup();
         [JsonProperty("randSettings")]
@@ -85,14 +83,7 @@ namespace Ink_Canvas
 
     public class Startup
     {
-        [JsonProperty("isAutoUpdate")]
-        public bool IsAutoUpdate { get; set; } = true;
-        [JsonProperty("isAutoUpdateWithSilence")]
-        public bool IsAutoUpdateWithSilence { get; set; } = false;
-        [JsonProperty("isAutoUpdateWithSilenceStartTime")]
-        public string AutoUpdateWithSilenceStartTime { get; set; } = "00:00";
-        [JsonProperty("isAutoUpdateWithSilenceEndTime")]
-        public string AutoUpdateWithSilenceEndTime { get; set; } = "00:00";
+        
 
         [JsonProperty("isEnableNibMode")]
         public bool IsEnableNibMode { get; set; } = false;
@@ -378,22 +369,6 @@ namespace Ink_Canvas
 
         [JsonProperty("isSecondConfirmWhenShutdownApp")]
         public bool IsSecondConfirmWhenShutdownApp { get; set; } = false;
-    }
-
-    public class InkToShape
-    {
-        [JsonProperty("isInkToShapeEnabled")]
-        public bool IsInkToShapeEnabled { get; set; } = true;
-        [JsonProperty("isInkToShapeNoFakePressureRectangle")]
-        public bool IsInkToShapeNoFakePressureRectangle { get; set; } = false;
-        [JsonProperty("isInkToShapeNoFakePressureTriangle")]
-        public bool IsInkToShapeNoFakePressureTriangle { get; set; } = false;
-        [JsonProperty("isInkToShapeTriangle")]
-        public bool IsInkToShapeTriangle { get; set; } = true;
-        [JsonProperty("isInkToShapeRectangle")]
-        public bool IsInkToShapeRectangle { get; set; } = true;
-        [JsonProperty("isInkToShapeRounded")]
-        public bool IsInkToShapeRounded { get; set; } = true;
     }
 
     public class RandSettings {
