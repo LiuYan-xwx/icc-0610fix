@@ -59,8 +59,7 @@ namespace Ink_Canvas {
             timerKillProcess.Interval = 2000;
             timerCheckAutoFold.Elapsed += timerCheckAutoFold_Elapsed;
             timerCheckAutoFold.Interval = 500;
-            timerCheckAutoUpdateWithSilence.Elapsed += timerCheckAutoUpdateWithSilence_Elapsed;
-            timerCheckAutoUpdateWithSilence.Interval = 1000 * 60 * 10;
+            
             WaterMarkTime.DataContext = nowTimeVM;
             WaterMarkDate.DataContext = nowTimeVM;
             timerDisplayTime.Elapsed += TimerDisplayTime_Elapsed;
@@ -301,26 +300,6 @@ namespace Ink_Canvas {
             catch { }
         }
 
-        private void timerCheckAutoUpdateWithSilence_Elapsed(object sender, ElapsedEventArgs e) {
-            Dispatcher.Invoke(() => {
-                try {
-                    if (!Topmost || inkCanvas.Strokes.Count > 0) return;
-                }
-                catch (Exception ex) {
-                    LogHelper.WriteLogToFile(ex.ToString(), LogHelper.LogType.Error);
-                }
-            });
-            try {
-                if (AutoUpdateWithSilenceTimeComboBox.CheckIsInSilencePeriod(
-                        Settings.Startup.AutoUpdateWithSilenceStartTime,
-                        Settings.Startup.AutoUpdateWithSilenceEndTime)) {
-                    AutoUpdateHelper.InstallNewVersionApp(AvailableLatestVersion, true);
-                    timerCheckAutoUpdateWithSilence.Stop();
-                }
-            }
-            catch (Exception ex) {
-                LogHelper.WriteLogToFile(ex.ToString(), LogHelper.LogType.Error);
-            }
-        }
+        
     }
 }

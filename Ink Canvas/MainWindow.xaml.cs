@@ -168,7 +168,7 @@ namespace Ink_Canvas {
             loadPenCanvas();
             //加载设置
             LoadSettings(true);
-            // HasNewUpdateWindow hasNewUpdateWindow = new HasNewUpdateWindow();
+            
             if (Environment.Is64BitProcess) GroupBoxInkRecognition.Visibility = Visibility.Collapsed;
 
             ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
@@ -283,27 +283,7 @@ namespace Ink_Canvas {
             LogHelper.WriteLogToFile("Ink Canvas closed", LogHelper.LogType.Event);
         }
 
-        private async void AutoUpdate() {
-            AvailableLatestVersion = await AutoUpdateHelper.CheckForUpdates();
-
-            if (AvailableLatestVersion != null) {
-                var IsDownloadSuccessful = false;
-                IsDownloadSuccessful = await AutoUpdateHelper.DownloadSetupFileAndSaveStatus(AvailableLatestVersion);
-
-                if (IsDownloadSuccessful) {
-                    if (!Settings.Startup.IsAutoUpdateWithSilence) {
-                        if (MessageBox.Show("InkCanvasForClass 新版本安装包已下载完成，是否立即更新？",
-                                "InkCanvasForClass New Version Available", MessageBoxButton.YesNo,
-                                MessageBoxImage.Question) ==
-                            MessageBoxResult.Yes) AutoUpdateHelper.InstallNewVersionApp(AvailableLatestVersion, false);
-                    } else {
-                        timerCheckAutoUpdateWithSilence.Start();
-                    }
-                }
-            } else {
-                AutoUpdateHelper.DeleteUpdatesFolder();
-            }
-        }
+        
 
         #endregion Definations and Loading
     }

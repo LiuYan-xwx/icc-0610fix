@@ -18,35 +18,6 @@ namespace Ink_Canvas {
     public partial class MainWindow : Window {
         #region Behavior
 
-        private void ToggleSwitchIsAutoUpdate_Toggled(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Startup.IsAutoUpdate = ToggleSwitchIsAutoUpdate.IsOn;
-            ToggleSwitchIsAutoUpdateWithSilence.Visibility =
-                ToggleSwitchIsAutoUpdate.IsOn ? Visibility.Visible : Visibility.Collapsed;
-            SaveSettingsToFile();
-        }
-
-        private void ToggleSwitchIsAutoUpdateWithSilence_Toggled(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Startup.IsAutoUpdateWithSilence = ToggleSwitchIsAutoUpdateWithSilence.IsOn;
-            AutoUpdateTimePeriodBlock.Visibility =
-                Settings.Startup.IsAutoUpdateWithSilence ? Visibility.Visible : Visibility.Collapsed;
-            SaveSettingsToFile();
-        }
-
-        private void AutoUpdateWithSilenceStartTimeComboBox_SelectionChanged(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Startup.AutoUpdateWithSilenceStartTime =
-                (string)AutoUpdateWithSilenceStartTimeComboBox.SelectedItem;
-            SaveSettingsToFile();
-        }
-
-        private void AutoUpdateWithSilenceEndTimeComboBox_SelectionChanged(object sender, RoutedEventArgs e) {
-            if (!isLoaded) return;
-            Settings.Startup.AutoUpdateWithSilenceEndTime = (string)AutoUpdateWithSilenceEndTimeComboBox.SelectedItem;
-            SaveSettingsToFile();
-        }
-
         private void ToggleSwitchRunAtStartup_Toggled(object sender, RoutedEventArgs e) {
             if (!isLoaded) return;
             if (ToggleSwitchRunAtStartup.IsOn) {
@@ -1461,10 +1432,7 @@ namespace Ink_Canvas {
 
 
             Settings.Startup.IsEnableNibMode = false;
-            Settings.Startup.IsAutoUpdate = true;
-            Settings.Startup.IsAutoUpdateWithSilence = true;
-            Settings.Startup.AutoUpdateWithSilenceStartTime = "18:20";
-            Settings.Startup.AutoUpdateWithSilenceEndTime = "07:40";
+            
             Settings.Startup.IsFoldAtStartup = false;
         }
 
