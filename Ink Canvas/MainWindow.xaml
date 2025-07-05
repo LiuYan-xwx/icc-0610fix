@@ -348,78 +348,6 @@
                                                Foreground="#a1a1aa" />
                                 </ui:SimpleStackPanel>
                             </GroupBox>
-                            <GroupBox Name="GroupBoxInkRecognition">
-                                <GroupBox.Header>
-                                    <TextBlock Margin="0,12,0,0" Text="墨迹纠正" FontWeight="Bold" Foreground="#fafafa"
-                                               FontSize="26" />
-                                </GroupBox.Header>
-                                <ui:SimpleStackPanel Spacing="6">
-                                    <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                        <TextBlock Foreground="#fafafa" Text="启用墨迹识别" VerticalAlignment="Center"
-                                                   FontSize="14" Margin="0,0,16,0" />
-                                        <ui:ToggleSwitch OnContent="" OffContent="" Name="ToggleSwitchEnableInkToShape"
-                                                         IsOn="True" FontFamily="Microsoft YaHei UI" FontWeight="Bold"
-                                                         Toggled="ToggleSwitchEnableInkToShape_Toggled" />
-                                    </ui:SimpleStackPanel>
-                                    <ui:SimpleStackPanel Spacing="6"
-                                                         Visibility="{Binding ElementName=ToggleSwitchEnableInkToShape, Path=IsOn, Converter={StaticResource BooleanToVisibilityConverter}}">
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <TextBlock Foreground="#fafafa" Text="阻止矫正后的矩形带有模拟压感值"
-                                                       VerticalAlignment="Center" FontSize="14" Margin="0,0,16,0" />
-                                            <ui:ToggleSwitch OnContent="" OffContent=""
-                                                             Name="ToggleSwitchEnableInkToShapeNoFakePressureRectangle"
-                                                             IsOn="True" FontFamily="Microsoft YaHei UI"
-                                                             FontWeight="Bold"
-                                                             Toggled="ToggleSwitchEnableInkToShapeNoFakePressureRectangle_Toggled" />
-                                        </ui:SimpleStackPanel>
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <TextBlock Foreground="#fafafa" Text="阻止矫正后的三角形带有模拟压感值"
-                                                       VerticalAlignment="Center" FontSize="14" Margin="0,0,16,0" />
-                                            <ui:ToggleSwitch OnContent="" OffContent=""
-                                                             Name="ToggleSwitchEnableInkToShapeNoFakePressureTriangle"
-                                                             IsOn="True" FontFamily="Microsoft YaHei UI"
-                                                             FontWeight="Bold"
-                                                             Toggled="ToggleSwitchEnableInkToShapeNoFakePressureTriangle_Toggled" />
-                                        </ui:SimpleStackPanel>
-                                        <Line HorizontalAlignment="Center" X1="0" Y1="0" X2="400" Y2="0"
-                                              Stroke="#3f3f46" StrokeThickness="1" Margin="0,4,0,4" />
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <CheckBox IsChecked="True" Name="ToggleCheckboxEnableInkToShapeTriangle"
-                                                      Checked="ToggleCheckboxEnableInkToShapeTriangle_CheckedChanged"
-                                                      Unchecked="ToggleCheckboxEnableInkToShapeTriangle_CheckedChanged">
-                                                <CheckBox.Content>
-                                                    <TextBlock Foreground="#fafafa" Text="矫正手绘三角形"
-                                                               VerticalAlignment="Center" FontSize="14"
-                                                               Margin="0,0,16,0" />
-                                                </CheckBox.Content>
-                                            </CheckBox>
-                                        </ui:SimpleStackPanel>
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <CheckBox IsChecked="True" Name="ToggleCheckboxEnableInkToShapeRectangle"
-                                                      Checked="ToggleCheckboxEnableInkToShapeRectangle_CheckedChanged"
-                                                      Unchecked="ToggleCheckboxEnableInkToShapeRectangle_CheckedChanged">
-                                                <CheckBox.Content>
-                                                    <TextBlock Foreground="#fafafa" Text="矫正手绘矩形"
-                                                               VerticalAlignment="Center" FontSize="14"
-                                                               Margin="0,0,16,0" />
-                                                </CheckBox.Content>
-                                            </CheckBox>
-                                        </ui:SimpleStackPanel>
-                                        <ui:SimpleStackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                                            <CheckBox IsChecked="True" Name="ToggleCheckboxEnableInkToShapeRounded"
-                                                      Checked="ToggleCheckboxEnableInkToShapeRounded_CheckedChanged"
-                                                      Unchecked="ToggleCheckboxEnableInkToShapeRounded_CheckedChanged">
-                                                <CheckBox.Content>
-                                                    <TextBlock Foreground="#fafafa" Text="矫正手绘圆形与椭圆"
-                                                               VerticalAlignment="Center" FontSize="14"
-                                                               Margin="0,0,16,0" />
-                                                </CheckBox.Content>
-                                            </CheckBox>
-                                        </ui:SimpleStackPanel>
-                                    </ui:SimpleStackPanel>
-
-                                </ui:SimpleStackPanel>
-                            </GroupBox>
                             <GroupBox Name="GroupBoxAppearanceNewUI">
                                 <GroupBox.Header>
                                     <TextBlock Margin="0,12,0,0" Text="个性化" FontWeight="Bold" Foreground="#fafafa"
@@ -2960,20 +2888,6 @@
                                                                                 Toggled="ToggleSwitchEnableNibMode_Toggled"
                                                                                 IsOn="True" />
                                                                         </ui:SimpleStackPanel>
-                                                                        <ui:SimpleStackPanel Orientation="Horizontal"
-                                                                            Width="140">
-                                                                            <Label Margin="0,0,10,0" Content="墨迹纠正"
-                                                                                Foreground="{DynamicResource FloatBarForeground}"
-                                                                                FontSize="15"
-                                                                                VerticalAlignment="Center" />
-                                                                            <ui:ToggleSwitch
-                                                                                Foreground="{DynamicResource FloatBarForeground}"
-                                                                                FontFamily="Microsoft YaHei UI"
-                                                                                Width="70"
-                                                                                Toggled="ToggleSwitchEnableInkToShape_Toggled"
-                                                                                MinWidth="0"
-                                                                                IsOn="{Binding ElementName=ToggleSwitchEnableInkToShape, Path=IsOn}" />
-                                                                        </ui:SimpleStackPanel>
                                                                     </ui:SimpleStackPanel>
                                                                 </Controls:UniformGrid>
 
@@ -5302,18 +5216,6 @@
                                                                             Width="70" Margin="10,0,0,0"
                                                                             Toggled="ToggleSwitchEnableNibMode_Toggled"
                                                                             IsOn="True" />
-                                                                    </ui:SimpleStackPanel>
-                                                                    <ui:SimpleStackPanel Orientation="Horizontal"
-                                                                        Width="140">
-                                                                        <Label Margin="0,0,10,0" Content="墨迹纠正"
-                                                                               Foreground="{DynamicResource FloatBarForeground}"
-                                                                               FontSize="15" VerticalAlignment="Center" />
-                                                                        <ui:ToggleSwitch
-                                                                            Foreground="{DynamicResource FloatBarForeground}"
-                                                                            FontFamily="Microsoft YaHei UI" Width="70"
-                                                                            Toggled="ToggleSwitchEnableInkToShape_Toggled"
-                                                                            MinWidth="0"
-                                                                            IsOn="{Binding ElementName=ToggleSwitchEnableInkToShape, Path=IsOn}" />
                                                                     </ui:SimpleStackPanel>
                                                                 </ui:SimpleStackPanel>
                                                             </Controls:UniformGrid>

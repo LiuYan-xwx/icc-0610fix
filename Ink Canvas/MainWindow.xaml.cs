@@ -168,8 +168,6 @@ namespace Ink_Canvas {
             loadPenCanvas();
             //加载设置
             LoadSettings(true);
-            
-            if (Environment.Is64BitProcess) GroupBoxInkRecognition.Visibility = Visibility.Collapsed;
 
             ThemeManager.Current.ApplicationTheme = ApplicationTheme.Light;
             SystemEvents_UserPreferenceChanged(null, null);
@@ -192,13 +190,6 @@ namespace Ink_Canvas {
             BtnWhiteBoardSwitchPrevious.IsEnabled = CurrentWhiteboardIndex != 1;
             BorderInkReplayToolBox.Visibility = Visibility.Collapsed;
 
-            // 提前加载IA库，优化第一笔等待时间
-            if (Settings.InkToShape.IsInkToShapeEnabled && !Environment.Is64BitProcess) {
-                var strokeEmpty = new StrokeCollection();
-                InkRecognizeHelper.RecognizeShape(strokeEmpty);
-            }
-
-            SystemEvents.DisplaySettingsChanged += SystemEventsOnDisplaySettingsChanged;
         }
 
         private void SystemEventsOnDisplaySettingsChanged(object sender, EventArgs e) {

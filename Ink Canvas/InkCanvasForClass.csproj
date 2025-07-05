@@ -111,15 +111,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IACore">
-      <HintPath>.\IACore.dll</HintPath>
-    </Reference>
-    <Reference Include="IALoader">
-      <HintPath>.\IALoader.dll</HintPath>
-    </Reference>
-    <Reference Include="IAWinFX">
-      <HintPath>.\IAWinFX.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="netstandard" />
     <Reference Include="System.Windows.Forms" />

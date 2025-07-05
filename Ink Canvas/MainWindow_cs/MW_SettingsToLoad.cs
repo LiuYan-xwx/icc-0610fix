@@ -526,25 +526,6 @@ namespace Ink_Canvas {
                 Settings.Advanced = new Advanced();
             }
 
-            // InkToShape
-            if (Settings.InkToShape != null) {
-                ToggleSwitchEnableInkToShape.IsOn = Settings.InkToShape.IsInkToShapeEnabled;
-
-                ToggleSwitchEnableInkToShapeNoFakePressureRectangle.IsOn =
-                    Settings.InkToShape.IsInkToShapeNoFakePressureRectangle;
-
-                ToggleSwitchEnableInkToShapeNoFakePressureTriangle.IsOn =
-                    Settings.InkToShape.IsInkToShapeNoFakePressureTriangle;
-
-                ToggleCheckboxEnableInkToShapeTriangle.IsChecked = Settings.InkToShape.IsInkToShapeTriangle;
-
-                ToggleCheckboxEnableInkToShapeRectangle.IsChecked = Settings.InkToShape.IsInkToShapeRectangle;
-
-                ToggleCheckboxEnableInkToShapeRounded.IsChecked = Settings.InkToShape.IsInkToShapeRounded;
-            } else {
-                Settings.InkToShape = new InkToShape();
-            }
-
             // RandSettings
             if (Settings.RandSettings != null) { } else {
                 Settings.RandSettings = new RandSettings();
