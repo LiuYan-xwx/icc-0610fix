@@ -26,12 +26,14 @@ namespace Ink_Canvas {
         public static Slide slide = null;
         public static int slidescount = 0;
 
-        private void BtnCheckPPT_Click(object sender, RoutedEventArgs e) {
-            try {
-                pptApplication =
-                    (Microsoft.Office.Interop.PowerPoint.Application)Marshal.GetActiveObject("kwpp.Application");
+        private void BtnCheckPPT_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                pptApplication = new Microsoft.Office.Interop.PowerPoint.Application();
                 //pptApplication.SlideShowWindows[1].View.Next();
-                if (pptApplication != null) {
+                if (pptApplication != null)
+                {
                     //获得演示文稿对象
                     presentation = pptApplication.ActivePresentation;
                     pptApplication.SlideShowBegin += PptApplication_SlideShowBegin;
@@ -43,12 +45,14 @@ namespace Ink_Canvas {
                     slidescount = slides.Count;
                     memoryStreams = new MemoryStream[slidescount + 2];
                     // 获得当前选中的幻灯片
-                    try {
+                    try
+                    {
                         // 在普通视图下这种方式可以获得当前选中的幻灯片对象
                         // 然而在阅读模式下，这种方式会出现异常
                         slide = slides[pptApplication.ActiveWindow.Selection.SlideRange.SlideNumber];
                     }
-                    catch {
+                    catch
+                    {
                         // 在阅读模式下出现异常时，通过下面的方式来获得当前选中的幻灯片对象
                         slide = pptApplication.SlideShowWindows[1].View.Slide;
                     }
@@ -58,7 +62,8 @@ namespace Ink_Canvas {
                 //BtnCheckPPT.Visibility = Visibility.Collapsed;
                 StackPanelPPTControls.Visibility = Visibility.Visible;
             }
-            catch {
+            catch
+            {
                 //BtnCheckPPT.Visibility = Visibility.Visible;
                 StackPanelPPTControls.Visibility = Visibility.Collapsed;
                 LeftBottomPanelForPPTNavigation.Visibility = Visibility.Collapsed;
@@ -95,8 +100,7 @@ namespace Ink_Canvas {
                 //new ComAwareEventInfo(typeof(EApplication_Event), "SlideShowNextSlide").AddEventHandler(pptApplication, new EApplication_SlideShowNextSlideEventHandler(this.PptApplication_SlideShowNextSlide));
                 //ConfigHelper.Instance.IsInitApplicationSuccessful = true;
 
-                pptApplication =
-                    (Microsoft.Office.Interop.PowerPoint.Application)Marshal.GetActiveObject("PowerPoint.Application");
+                pptApplication = new Microsoft.Office.Interop.PowerPoint.Application();
 
                 if (pptApplication != null) {
                     timerCheckPPT.Stop();
